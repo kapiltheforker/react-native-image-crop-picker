@@ -4,6 +4,8 @@ import android.os.Bundle;
 
 import com.facebook.react.ReactActivity;
 import com.facebook.soloader.SoLoader;
+import androidx.core.view.ViewCompat;
+import androidx.core.view.WindowInsetsCompat;
 
 public class MainActivity extends ReactActivity {
 
@@ -20,5 +22,12 @@ public class MainActivity extends ReactActivity {
     protected void onCreate(Bundle savedInstanceState) {
         SoLoader.init(this, /* native exopackage */ false);
         super.onCreate(savedInstanceState);
+        
+       ViewCompat.setOnApplyWindowInsetsListener(getWindow().getDecorView(), (view, insets) -> {
+        int imeBottom = insets.getInsets(WindowInsetsCompat.Type.ime()).bottom;
+        view.setPadding(view.getPaddingLeft(), view.getPaddingTop(), view.getPaddingRight(), imeBottom);
+        return insets;
+    });
+
     }
 }
